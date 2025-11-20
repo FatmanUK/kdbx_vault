@@ -1,0 +1,16 @@
+APP_BIN=kdbx_vault
+VERSION='0.0.1-idea'
+
+LDFLAGS =-X main.BUILD_MODE='@(BUILD_MODE)'
+LDFLAGS+=-X main.VERSION=$(VERSION)
+LDFLAGS+=-X main.APP_PORT='@(APP_PORT)'
+LDFLAGS+=@(EXTRA_LDFLAGS)
+
+GOENV=GOOS=@(OS) GOARCH=@(ARCH) go build
+
+APP_SRC= \
+	src/main.go
+
+: $(APP_SRC) \
+	|> $(GOENV) -o %o -ldflags "$(LDFLAGS)" %f \
+	|> $(APP_BIN)
