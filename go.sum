@@ -1,0 +1,10 @@
+github.com/tobischo/argon2 v0.1.0 h1:mwAx/9DK/4rP0xzNifb/XMAf43dU3eG1B3aeF88qu4Y=
+github.com/tobischo/argon2 v0.1.0/go.mod h1:4NLmLFwhWPbT66nRZNgcktV/mibJ6fESoeEp43h9GRw=
+github.com/tobischo/gokeepasslib v1.0.0 h1:+cvOvPNoaop/8CL2P6Up9Ly1ih8oarkS/0QoBWQeAlM=
+github.com/tobischo/gokeepasslib v1.0.0/go.mod h1:rmRsvAEXwfdT+WMzMjvM2JJiDKRvccJ7+s3MmyK8XC4=
+github.com/tobischo/gokeepasslib/v3 v3.6.1 h1:AShQlTypdM19glj0UUePQcUi56qQyeFI5NcrWnVFudA=
+github.com/tobischo/gokeepasslib/v3 v3.6.1/go.mod h1:B31dx/dj0egameQrNtuoOx9RnwxnYaZR4kXaahRuZN8=
+golang.org/x/crypto v0.45.0 h1:jMBrvKuj23MTlT0bQEOBcAE0mjg8mK9RXFhRH6nyF3Q=
+golang.org/x/crypto v0.45.0/go.mod h1:XTGrrkGJve7CYK7J8PEww4aY7gM3qMCElcJQ8n8JdX4=
+golang.org/x/sys v0.38.0 h1:3yZWxaJjBmCWXqhN1qh02AkOnCQ1poK6oF+a7xWL6Gc=
+golang.org/x/sys v0.38.0/go.mod h1:OgkHotnGiDImocRcuBABYBEXf8A9a87e/uXjp9XT3ks=
