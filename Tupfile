@@ -9,13 +9,16 @@ LDFLAGS+=-X main.KV_PORT=@(KV_PORT)
 LDFLAGS+=-X main.APP_NAME=$(KV_BIN)
 LDFLAGS+=@(EXTRA_LDFLAGS)
 
-APP_SRC= \
-	src/main.go \
-	src/database.go \
-	src/tools.go \
-	src/entries.go \
-	src/groups.go \
-	src/base64.go \
+APP_SRC=                  \
+	src/main.go       \
+	src/database.go   \
+	src/tools.go      \
+	src/entries.go    \
+	src/groups.go     \
+	src/base64.go     \
+	src/kdbx.go       \
+	src/converters.go \
+	src/docopt.go     \
 	src/buildVars.go
 
 : $(APP_SRC) \

@@ -1,105 +1,103 @@
 package main
 
 import (
-	//"os"
+	"net/http"
 	"github.com/gin-gonic/gin"
-	//kdbx "github.com/tobischo/gokeepasslib/v3"
+//	kdbx "github.com/tobischo/gokeepasslib/v3"
 )
 
-type Database struct {
-	Desc Descriptor
+// StatusOK = 200
+// StatusNoContent = 204
+// StatusUnauthorized = 401
+// StatusForbidden = 403
+// StatusNotFound = 404
+// StatusTeapot = 418
+// StatusInternalServerError = 500
+// StatusBadGateway = 502
+// StatusGatewayTimeout = 504
+// StatusCreated = ?
+
+func addDatabaseRoutes(r *gin.Engine, pre string) {
+	r.GET(pre + "/database", getDatabase)
+	r.POST(pre + "/database", postDatabase)
 }
 
-func getDatabase(c *gin.Context) { // return database metadata
+// Return database metadata.
+// Marshals twice in order to delete boring data.
+// Have a separate endpoint for customIcons and binaries?
+func getDatabase(c *gin.Context) {
 	logs <- "Get Database"
-
-	b64_pw := getSingleHeader(c, "X-Kdbx-B64password")
-	pw := Base64Decode(b64_pw)
-
-	file := mustOpenFile(filename)
-	defer file.Close()
-
-	db = openKdbx(file, pw)
-	db.UnlockProtectedEntries()
-	defer db.LockProtectedEntries()
-
-//    c.IndentedJSON(http.StatusOK, albums)
+	k := Kdbx{}.Init(c)
+	k, err := k.Unlock(filename)
+	if err != nil {
+		c.Status(statusFromError(err))
+		return
+	}
+	defer k.Close()
+	md, err := k.GetMetadata()
+	if err != nil {
+		c.Status(statusFromError(err))
+		return
+	}
+	//
+	k = k.Lock()
+	c.JSON(http.StatusOK, md)
 }
 
-func postDatabase(c *gin.Context) { // update database metadata
+// Update database metadata.
+func postDatabase(c *gin.Context) {
 	logs <- "Post Database"
-
-	b64_pw := getSingleHeader(c, "X-Kdbx-B64password")
-	pw := Base64Decode(b64_pw)
-
-	file := mustOpenFile(filename)
-	defer file.Close()
-
-	db = openKdbx(file, pw)
-	db.UnlockProtectedEntries()
-	defer db.LockProtectedEntries()
-
-/*
-    var newAlbum album
-
-    // Call BindJSON to bind the received JSON to
-    // newAlbum.
-    if err := c.BindJSON(&newAlbum); err != nil {
-        return
-    }
-
-    // Add the new album to the slice.
-    albums = append(albums, newAlbum)
-    c.IndentedJSON(http.StatusCreated, newAlbum)
-*/
-}
-
+	k := Kdbx{}.Init(c)
+	k, err := k.Unlock(filename)
+	if err != nil {
+		c.Status(statusFromError(err))
+		return
+	}
+	defer k.Close()
+	md, err := k.GetMetadata()
+	if err != nil {
+		c.Status(statusFromError(err))
+		return
+	}
+	//
+	bd, err := k.GetRequestBody()
+	if err != nil {
+		c.Status(statusFromError(err))
+		return
+	}
+	logs <- string(bd)
+//	logs <- string(md[0])
+	c.JSON(http.StatusOK, md)
 
 /*
-type album struct {
-    ID     string  `json:"id"`
-    Title  string  `json:"title"`
-    Artist string  `json:"artist"`
-    Price  float64 `json:"price"`
-}
-
-func getAlbums(c *gin.Context) {
-    c.IndentedJSON(http.StatusOK, albums)
-}
-
-func getAlbumByID(c *gin.Context) {
-    id := c.Param("id")
-
-    // Loop over the list of albums, looking for
-    // an album whose ID value matches the parameter.
-    for _, a := range albums {
-        if a.ID == id {
-            c.IndentedJSON(http.StatusOK, a)
-            return
-        }
-    }
-    c.IndentedJSON(http.StatusNotFound, gin.H{"message": "album not found"})
-}
-
-// albums slice to seed record album data.
-var albums = []album{
-    {ID: "1", Title: "Blue Train", Artist: "John Coltrane", Price: 56.99},
-    {ID: "2", Title: "Jeru", Artist: "Gerry Mulligan", Price: 17.99},
-    {ID: "3", Title: "Sarah Vaughan and Clifford Brown", Artist: "Sarah Vaughan", Price: 39.99},
-}
-
-// postAlbums adds an album from JSON received in the request body.
-func putAlbums(c *gin.Context) {
-    var newAlbum album
-
-    // Call BindJSON to bind the received JSON to
-    // newAlbum.
-    if err := c.BindJSON(&newAlbum); err != nil {
-        return
-    }
-
-    // Add the new album to the slice.
-    albums = append(albums, newAlbum)
-    c.IndentedJSON(http.StatusCreated, newAlbum)
-}
+	k = k.Lock()
+	c.JSON(http.StatusOK, md)
 */
+/*
+	reqBody, err := ioutil.ReadAll(c.Request.Body)
+	if err != nil {
+		c.Status(statusFromError(err))
+		return
+	}
+	var intermediate interface{}
+	json.Unmarshal(reqBody, &intermediate)
+	for k, v := range intermediate.(map[string]interface{}) {
+		updateMetadata(db, k, stringFromInterface(v))
+
+		//TODO
+		// check we have a whatsit called k
+		// check it's writable
+		// write it
+		logs <- (k + " -> " + v)
+
+	}
+*
+	db.LockProtectedEntries()
+	err = kdbx.NewEncoder(file).Encode(db)
+	if err != nil {
+		c.Status(statusFromError(err))
+		return
+	}
+*/
+	c.Status(http.StatusNoContent)
+}

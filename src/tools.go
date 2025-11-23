@@ -5,8 +5,10 @@ import (
 	//kdbx "github.com/tobischo/gokeepasslib/v3"
 )
 
-type Tool struct {
-	Desc Descriptor
+func addToolsRoutes(r *gin.Engine, pre string) {
+	r.GET(pre + "/tools", getTools)
+	r.GET(pre + "/tools/password", getToolsPassword)
+	r.GET(pre + "/tools/password/list", getToolsPasswordList)
 }
 
 func getTools(c *gin.Context) { // list of tools

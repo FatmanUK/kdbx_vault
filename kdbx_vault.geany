@@ -28,10 +28,13 @@ long_line_behaviour=1
 long_line_column=70
 
 [files]
-current_page=0
-FILE_NAME_0=226;Go;0;EUTF-8;1;1;1;%2Fhome%2Ffatman%2FRepositories%2Fkdbx_vault%2Fsrc%2Fdatabase.go;0;8
-FILE_NAME_1=22;Go;0;EUTF-8;1;1;1;%2Fhome%2Ffatman%2FRepositories%2Fkdbx_vault%2Fsrc%2FbuildVars.go;0;8
-FILE_NAME_2=25;Go;0;EUTF-8;1;1;1;%2Fhome%2Ffatman%2FRepositories%2Fkdbx_vault%2Fsrc%2Fentries.go;0;8
+current_page=5
+FILE_NAME_0=366;Go;0;EUTF-8;1;1;1;%2Fhome%2Ffatman%2FRepositories%2Fkdbx_vault%2Fsrc%2Fdatabase.go;0;8
+FILE_NAME_1=185;Go;0;EUTF-8;1;1;1;%2Fhome%2Ffatman%2FRepositories%2Fkdbx_vault%2Fsrc%2FbuildVars.go;0;8
+FILE_NAME_2=12;Go;0;EUTF-8;1;1;1;%2Fhome%2Ffatman%2FRepositories%2Fkdbx_vault%2Fsrc%2Fentries.go;0;8
+FILE_NAME_3=12;Go;0;EUTF-8;1;1;1;%2Fhome%2Ffatman%2FRepositories%2Fkdbx_vault%2Fsrc%2Ftools.go;0;8
+FILE_NAME_4=13;Go;0;EUTF-8;1;1;1;%2Fhome%2Ffatman%2FRepositories%2Fkdbx_vault%2Fsrc%2Fgroups.go;0;8
+FILE_NAME_5=891;Go;0;EUTF-8;1;1;1;%2Fhome%2Ffatman%2FRepositories%2Fkdbx_vault%2Fsrc%2Fkdbx.go;0;8
 
 [VTE]
 last_dir=/home/fatman

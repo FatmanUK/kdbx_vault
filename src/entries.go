@@ -7,8 +7,12 @@ import (
 //	kdbx "github.com/tobischo/gokeepasslib/v3"
 )
 
-type Entry struct {
-	Desc Descriptor
+func addEntriesRoutes(r *gin.Engine, pre string) {
+	r.GET(pre + "/entries", getEntries)
+	r.PUT(pre + "/entries", putEntries)
+	r.GET(pre + "/entries/:id", getEntryById)
+	r.POST(pre+ "/entries/:id", postEntryById)
+	r.DELETE(pre + "/entries/:id", deleteEntryById)
 }
 
 /*
@@ -54,12 +58,21 @@ func putEntries(c *gin.Context) { // add new entry
 
 func getEntryById(c *gin.Context) { // return entry
 	logs <- "Get Entry"
+/*router.GET("/user/:id", func(c *gin.Context) {
+    // a GET request to /user/john
+    id := c.Param("id") // id == "john"
+    // a GET request to /user/john/
+    id := c.Param("id") // id == "/john/"
+})*/
+//	id := c.Param("id")
 }
 
 func postEntryById(c *gin.Context) { // update entry
 	logs <- "Post Entry"
+//	id := c.Param("id")
 }
 
 func deleteEntryById(c *gin.Context) { // delete entry
 	logs <- "Delete Entry"
+//	id := c.Param("id")
 }

@@ -5,8 +5,12 @@ import (
 	//kdbx "github.com/tobischo/gokeepasslib/v3"
 )
 
-type Group struct {
-	Desc Descriptor
+func addGroupsRoutes(r *gin.Engine, pre string) {
+	r.GET(pre + "/groups", getGroups)
+	r.PUT(pre + "/groups", putGroups)
+	r.GET(pre + "/groups/:id", getGroupById)
+	r.POST(pre+ "/groups/:id", postGroupById)
+	r.DELETE(pre + "/groups/:id", deleteGroupById)
 }
 
 func getGroups(c *gin.Context) { // list groups

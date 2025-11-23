@@ -16,3 +16,7 @@ A: Not unless I get very bored one weekend. No, you can create them using one of
 Q: Will I be adding deletion of KDBX databases?
 
 A: No, operating systems already have commands to delete files.
+
+Q: Will I be adding TLS?
+
+A: No. If you want TLS, stick a reverse proxy nginx in front of it.

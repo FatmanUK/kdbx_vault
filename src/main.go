@@ -22,41 +22,28 @@ Options:
   -p <port>  Localhost port [default: {{ .Port }}]
 `
 
+// shut up, Gin
+// no frillies
+// no proxies?
 func threadGinLoop(port string) {
 	prefix := "/api/v1"
-	gin.SetMode(gin.ReleaseMode) // shut up, Gin
-	router := gin.New() // no frillies
-	router.SetTrustedProxies(nil) // no proxies?
-
-	router.GET(prefix + "/database", getDatabase)
-	router.POST(prefix + "/database", postDatabase)
-/*
-	router.GET(prefix + "/tools", getTools)
-	router.GET(prefix + "/tools/password", getToolsPassword)
-	router.GET(prefix + "/tools/password/list", getToolsPasswordList)
-
-	router.GET(prefix + "/entries", getEntries)
-	router.PUT(prefix + "/entries", putEntries)
-	router.GET(prefix + "/entries/:id", getEntryById)
-	router.POST(prefix + "/entries/:id", postEntryById)
-	router.DELETE(prefix + "/entries/:id", deleteEntryById)
-
-	router.GET(prefix + "/groups", getGroups)
-	router.PUT(prefix + "/groups", putGroups)
-	router.GET(prefix + "/groups/:id", getGroupById)
-	router.POST(prefix + "/groups/:id", postGroupById)
-	router.DELETE(prefix + "/groups/:id", deleteGroupById)
-*/
+	gin.SetMode(gin.ReleaseMode)
+	router := gin.New()
+	router.SetTrustedProxies(nil)
+	addDatabaseRoutes(router, prefix)
+	addToolsRoutes(router, prefix)
+	addEntriesRoutes(router, prefix)
+	addGroupsRoutes(router, prefix)
 	router.Run("localhost:" + port)
 }
 
 func main() {
-	dotv := DocOptTemplateVar{
+	dotv := DocOptVars{
 		Name: APP_NAME,
 		Version: VERSION,
 		Port: KV_PORT,
 	}
-	ds := prepareDocoptString(docoptString, dotv)
+	ds := mustPrepareDocoptString(docoptString, dotv)
 	appVer := dotv.Name + " v" + dotv.Version
 	args, err := doh.NoExitParser.ParseArgs(ds, nil, appVer)
 	if err != nil {
