@@ -22,6 +22,8 @@ Options:
   -p <port>  Localhost port [default: {{ .Port }}]
 `
 
+var VERSION string = "badvalue"
+
 // shut up, Gin
 // no frillies
 // no proxies?
